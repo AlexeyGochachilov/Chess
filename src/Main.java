@@ -63,7 +63,7 @@ public class Main {
                 board.printBoard();
             } else {
                 if (s.equals("castling0")) {
-                       if (board.castling0()) {
+                    if (board.castling0()) {
                         System.out.println("Рокировка удалась");
                         board.printBoard();
                     } else {

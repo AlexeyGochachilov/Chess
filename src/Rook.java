@@ -40,30 +40,42 @@ public class Rook extends ChessPiece {
         boolean b = false;
         if (toColumn > column) {
             int x = toColumn - column;
-            for (int i = 1; i <= x; i++) {
-                if (chessBoard.board[line][column + i] == null)
+            int i = 1;
+            while (i <= x) {
+                if (chessBoard.board[line][column + i] == null) {
                     b = true;
+                    i++;
+                }
             }
         }
         if (toColumn < column) {
             int x = column - toColumn;
-            for (int i = 1; i <= x; i++) {
-                if (chessBoard.board[line][column - i] == null)
+            int i = 1;
+            while (i <= x) {
+                if (chessBoard.board[line][column - i] == null) {
                     b = true;
+                    i++;
+                }
             }
         }
         if (toLine > line) {
             int x = toLine - line;
-            for (int i = 1; i <= x; i++) {
-                if (chessBoard.board[line + i][column] == null)
+            int i = 1;
+            while (i <= x) {
+                if (chessBoard.board[line + i][column] == null) {
                     b = true;
+                    i++;
+                }
             }
         }
         if (toLine < line) {
             int x = line - toLine;
-            for (int i = 1; i <= x; i++) {
-                if (chessBoard.board[line - i][column] == null)
+            int i = 1;
+            while (i <= x) {
+                if (chessBoard.board[line - i][column] == null) {
                     b = true;
+                    i++;
+                }
             }
         }
         return b;

@@ -14,7 +14,7 @@ abstract public class ChessPiece {
     abstract public String getSymbol();
 
     public boolean checkPosition(int i) {
-        if (i >= 0 && i <= 7) {
+        if (0 <= i && i <= 7) {
             return true;
         } else return false;
     }

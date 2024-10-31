@@ -18,7 +18,6 @@ public class Rook extends ChessPiece {
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         if (checkPosition(line) && checkPosition(column) && checkPosition(toLine) && checkPosition(toColumn)) {
             if (chessBoard.board[line][column] != null) {
-                //  if (((line == toLine) && (column != toColumn)) || ((column == toColumn) && (line != toLine))) {
                 if (moveRock(chessBoard, line, column, toLine, toColumn)) {
                     return true;
                 } else return false;

@@ -78,7 +78,7 @@ public class Pawn extends ChessPiece {
         boolean b = false;
         if ((chessBoard.nowPlayerColor().equals("Black")) &&
                 (column - toColumn == 1 || column - toColumn == -1) && (line - toLine == 1) &&
-                !chessBoard.board[toLine][toColumn].getColor().equals(chessBoard.nowPlayer)) {
+                chessBoard.board[toLine][toColumn] != null) {
             b = !chessBoard.board[toLine][toColumn].getColor().equals(color);
         }
         return b;

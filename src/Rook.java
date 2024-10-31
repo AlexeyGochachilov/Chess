@@ -18,7 +18,6 @@ public class Rook extends ChessPiece {
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         if (checkPosition(line) && checkPosition(column) && checkPosition(toLine) && checkPosition(toColumn)) {
             if (chessBoard.board[line][column] != null) {
-                //  if (((line == toLine) && (column != toColumn)) || ((column == toColumn) && (line != toLine))) {
                 if (moveRock(chessBoard, line, column, toLine, toColumn)) {
                     return true;
                 } else return false;
@@ -38,32 +37,54 @@ public class Rook extends ChessPiece {
 
     public boolean checkPoint(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         boolean b = false;
-        if (toColumn > column) {
-            int x = toColumn - column;
-            for (int i = 1; i <= x; i++) {
-                if (chessBoard.board[line][column + i] == null)
-                    b = true;
+        if (chessBoard.board[toLine][toColumn] == null ||
+                !chessBoard.board[toLine][toColumn].getColor().equals(chessBoard.nowPlayer)) {
+            if (toColumn > column + 1) {
+                int x = toColumn - column;
+                for (int i = 1; i < x; i++) {
+                    if (chessBoard.board[line][column + i] == null) {
+                        b = true;
+                    } else {
+                        b = false;
+                        break;
+                    }
+                }
             }
-        }
-        if (toColumn < column) {
-            int x = column - toColumn;
-            for (int i = 1; i <= x; i++) {
-                if (chessBoard.board[line][column - i] == null)
-                    b = true;
+            if (toColumn < column - 1) {
+                int x = column - toColumn;
+                for (int i = 1; i < x; i++) {
+                    if (chessBoard.board[line][column - i] == null) {
+                        b = true;
+                    } else {
+                        b = false;
+                        break;
+                    }
+                }
             }
-        }
-        if (toLine > line) {
-            int x = toLine - line;
-            for (int i = 1; i <= x; i++) {
-                if (chessBoard.board[line + i][column] == null)
-                    b = true;
+            if (toLine > line + 1) {
+                int x = toLine - line;
+                for (int i = 1; i < x; i++) {
+                    if (chessBoard.board[line + i][column] == null) {
+                        b = true;
+                    } else {
+                        b = false;
+                        break;
+                    }
+                }
             }
-        }
-        if (toLine < line) {
-            int x = line - toLine;
-            for (int i = 1; i <= x; i++) {
-                if (chessBoard.board[line - i][column] == null)
-                    b = true;
+            if (toLine < line - 1) {
+                int x = line - toLine;
+                for (int i = 1; i < x; i++) {
+                    if (chessBoard.board[line - i][column] == null) {
+                        b = true;
+                    } else {
+                        b = false;
+                        break;
+                    }
+                }
+            }
+            if (toColumn == column + 1 || toColumn == column - 1 || toLine == line + 1 || toLine == line - 1){
+                b = true;
             }
         }
         return b;

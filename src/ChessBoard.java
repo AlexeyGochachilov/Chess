@@ -56,6 +56,10 @@ public class ChessBoard {
         return pos >= 0 && pos <= 7;
     }
 
+    public boolean castling7() {
+        return true;
+    }
+
     public boolean castling0() {
         if (nowPlayer.equals("White")) {
             if (board[0][0] == null || board[0][4] == null) return false;
@@ -92,9 +96,5 @@ public class ChessBoard {
                 } else return false;
             } else return false;
         }
-    }
-
-    public boolean castling7() {
-        return false;
     }
 }

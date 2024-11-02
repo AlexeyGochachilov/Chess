@@ -16,71 +16,59 @@ public class Pawn extends ChessPiece {
 
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        if (checkPosition(line) && checkPosition(column) && checkPosition(toLine) && checkPosition(toColumn)) {
-            if (chessBoard.board[line][column] != null) {
-                if (moveWhite(chessBoard, line, column, toLine, toColumn)) {
-                    return true;
+        boolean b = false;
+        if (positions4(line, column, toLine, toColumn)) {
+            if (thisPawn(chessBoard, line, column)) {
+                if (move(chessBoard, line, column, toLine, toColumn)) {
+                    b = true;
                 }
-                if (atackWhite(chessBoard, line, column, toLine, toColumn)) {
-                    return true;
+                if (atack(chessBoard, line, column, toLine, toColumn)) {
+                    b = true;
                 }
-                if (moveBlack(chessBoard, line, column, toLine, toColumn)) {
-                    return true;
+            }
+        }
+        return b;
+    }
+
+    public boolean thisPawn(ChessBoard chessBoard, int line, int column) {
+        return (chessBoard.board[line][column] != null && chessBoard.board[line][column].getColor().equals(chessBoard.nowPlayer)
+                && chessBoard.board[line][column].getSymbol().equals("P"));
+    }
+
+    public boolean move(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
+        boolean b = false;
+        if (toColumn == column && chessBoard.board[toLine][toColumn] == null) {
+            if (chessBoard.nowPlayerColor().equals("White")) {
+                if ((line == 1) && (toLine == (line + 2) || toLine == (line + 1))
+                        && (chessBoard.board[line + 1][column] == null)) {
+                    b = true;
                 }
-                if (atackBlack(chessBoard, line, column, toLine, toColumn)) {
-                    return true;
-                } else return false;
-            } else return false;
-        } else return false;
-    }
-
-
-
-    public boolean moveWhite(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        boolean b = false;
-        if ((chessBoard.nowPlayerColor().equals("White")) && (chessBoard.board[toLine][toColumn] == null)) {
-            if ((line == 1) && (column == toColumn) && (toLine == (line + 2) || toLine == (line + 1))
-                    && (chessBoard.board[line + 1][column] == null)) {
-                b = true;
+                if (line > 1 && toLine == (line + 1)) {
+                    b = true;
+                }
             }
-            if ((line > 1) && (toLine == (line + 1)) && (column == toColumn)) {
-                b = true;
+            if (chessBoard.nowPlayerColor().equals("Black")) {
+                if ((line == 6) && (toLine == (line - 2) || toLine == (line - 1))
+                        && (chessBoard.board[line - 1][column] == null)) {
+                    b = true;
+                }
+                if (line < 6 && toLine == (line - 1)) {
+                    b = true;
+                }
             }
         }
         return b;
     }
 
-    public boolean atackWhite(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
+    public boolean atack(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         boolean b = false;
-        if ((chessBoard.nowPlayerColor().equals("White")) &&
-                (column - toColumn == 1 || column - toColumn == -1) && (line - toLine == -1) &&
-                chessBoard.board[toLine][toColumn] != null) {
-            b = !chessBoard.board[toLine][toColumn].getColor().equals(color);
-        }
-        return b;
-    }
-
-    public boolean moveBlack(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        boolean b = false;
-        if ((chessBoard.nowPlayerColor().equals("Black")) && (chessBoard.board[toLine][toColumn] == null)) {
-            if ((line == 6) && (column == toColumn) && (toLine == (line - 2) || toLine == (line - 1))
-                    && (chessBoard.board[line - 1][column] == null)) {
-                b = true;
-            }
-            if ((line < 6) && (column == toColumn) && (toLine == (line - 1))) {
-                b = true;
+        if (chessBoard.board[toLine][toColumn] != null && (column - toColumn == 1 || column - toColumn == -1)) {
+            if ((chessBoard.nowPlayerColor().equals("White") && line - toLine == -1) ||
+                    (chessBoard.nowPlayerColor().equals("Black") && line - toLine == 1)) {
+                b = !chessBoard.board[toLine][toColumn].getColor().equals(color);
             }
         }
         return b;
     }
 
-    public boolean atackBlack(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        boolean b = false;
-        if ((chessBoard.nowPlayerColor().equals("Black")) &&
-                (column - toColumn == 1 || column - toColumn == -1) && (line - toLine == 1) &&
-                chessBoard.board[toLine][toColumn] != null) {
-            b = !chessBoard.board[toLine][toColumn].getColor().equals(color);
-        }
-        return b;
-    }
 }

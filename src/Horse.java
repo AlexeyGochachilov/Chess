@@ -16,15 +16,24 @@ public class Horse extends ChessPiece {
 
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        if (checkPosition(line) && checkPosition(column) && checkPosition(toLine) && checkPosition(toColumn)) {
-            if (chessBoard.board[line][column] != null) {
-                if (((toColumn == (column - 1)) || (toColumn == (column + 1))) && ((toLine == (line + 2)) || (toLine == (line - 2)))) {
-                    return true;
+        boolean b = false;
+        if (positions4(line, column, toLine, toColumn)) {
+            if (thisHorse(chessBoard, line, column)) {
+                for (int i = -2; i < 3; i += 4) {
+                    for (int j = -1; j < 2; j += 2) {
+                        if ((toColumn == (column + i)  && toLine == (line + j)) ||
+                                (toColumn == (column + j)  && toLine == (line + i))){
+                            b = true;
+                        }
+                    }
                 }
-                if (((toColumn == (column - 2)) || (toColumn == (column + 2))) && ((toLine == (line + 1)) || (toLine == (line - 1)))) {
-                    return true;
-                } else return false;
-            } else return false;
-        } else return true;
+            }
+        }
+        return b;
+    }
+
+    public boolean thisHorse(ChessBoard chessBoard, int line, int column) {
+        return (chessBoard.board[line][column] != null && chessBoard.board[line][column].getColor().equals(chessBoard.nowPlayer)
+                && chessBoard.board[line][column].getSymbol().equals("H"));
     }
 }

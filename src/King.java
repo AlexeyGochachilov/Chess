@@ -139,15 +139,19 @@ public class King extends ChessPiece {
         for (int i = -2; i < 3; i += 4) {
             for (int j = -1; j < 2; j += 2) {
                 if (positions2(line + i, column + j)) {
-                    if (!chessBoard.board[line + i][column + j].getColor().equals(chessBoard.nowPlayer) &&
-                            chessBoard.board[line + i][column + j].getSymbol().equals("H")) {
-                        b = true;
+                    if (chessBoard.board[line + i][column + j] != null) {
+                        if (!chessBoard.board[line + i][column + j].getColor().equals(color) &&
+                                chessBoard.board[line + i][column + j].getSymbol().equals("H")) {
+                            b = true;
+                        }
                     }
                 }
                 if (positions2(line + j, column + i)) {
-                    if (!chessBoard.board[line + j][column + i].getColor().equals(chessBoard.nowPlayer) &&
-                            chessBoard.board[line + j][column + i].getSymbol().equals("H")) {
-                        b = true;
+                    if (chessBoard.board[line + j][column + i] != null) {
+                        if (!chessBoard.board[line + j][column + i].getColor().equals(color) &&
+                                chessBoard.board[line + j][column + i].getSymbol().equals("H")) {
+                            b = true;
+                        }
                     }
                 }
             }
@@ -162,9 +166,6 @@ public class King extends ChessPiece {
                     }
                 }
             }
-        }
-
-        for (int i = -1; i < 2; i += 2) {
             if (positions2(line - 1, column + i)) {
                 if ((chessBoard.nowPlayer.equals("Black")) && (chessBoard.board[line - 1][column + i] != null)) {
                     if (chessBoard.board[line + 1][column + i].getSymbol().equals("P") &&

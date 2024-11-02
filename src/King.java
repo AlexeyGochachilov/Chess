@@ -135,7 +135,6 @@ public class King extends ChessPiece {
             }
         }
 
-
         for (int i = -2; i < 3; i += 4) {
             for (int j = -1; j < 2; j += 2) {
                 if (positions2(line + i, column + j)) {

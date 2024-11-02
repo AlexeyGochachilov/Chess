@@ -16,7 +16,7 @@ public class King extends ChessPiece {
 
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        if (checkPosition(line) && checkPosition(column) && checkPosition(toLine) && checkPosition(toColumn)) {
+        if (positions4(line, column, toLine, toColumn)) {
             if (chessBoard.board[line][column] != null) {
                 if (moveKing(chessBoard, line, column, toLine, toColumn)) {
                     return true;

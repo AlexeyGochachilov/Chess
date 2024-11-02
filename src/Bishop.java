@@ -16,22 +16,19 @@ public class Bishop extends ChessPiece {
 
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        if (checkPosition(line) && checkPosition(column) && checkPosition(toLine) && checkPosition(toColumn)) {
-            if (chessBoard.board[line][column] != null) {
-                if (moveBishop(chessBoard, line, column, toLine, toColumn)) {
-                    return true;
-                }else return false;
-            } else return false;
-        } else return false;
+        boolean b = false;
+        if (positions4(line, column, toLine, toColumn)) {
+            if (thisBishop(chessBoard, line, column)) {
+                b = (moveBishop(chessBoard, line, column, toLine, toColumn));
+            }
+        } return b;
     }
 
     public boolean moveBishop(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         boolean b = false;
         if ((toLine - line == toColumn - column) ||
                 (toLine - line == -(toColumn - column)) || (-(toLine - line) == toColumn - column)) {
-            if (checkPoint(chessBoard, line, column, toLine, toColumn)) {
-                b = true;
-            }
+            b = (checkPoint(chessBoard, line, column, toLine, toColumn));
         }
         return b;
     }
@@ -43,45 +40,25 @@ public class Bishop extends ChessPiece {
             if (toColumn > column + 1 && toLine > line + 1) {
                 int x = toColumn - column;
                 for (int i = 1; i < x; i++) {
-                    if (chessBoard.board[line + i][column + i] == null) {
-                        b = true;
-                    } else {
-                        b = false;
-                        break;
-                    }
+                    b = (chessBoard.board[line + i][column + i] == null);
                 }
             }
             if (toColumn < column - 1 && toLine < line - 1) {
                 int x = column - toColumn;
                 for (int i = 1; i < x; i++) {
-                    if (chessBoard.board[line - i][column - i] == null) {
-                        b = true;
-                    } else {
-                        b = false;
-                        break;
-                    }
+                    b = (chessBoard.board[line - i][column - i] == null);
                 }
             }
             if (toColumn < column - 1 && toLine > line + 1) {
                 int x = toLine - line;
                 for (int i = 1; i < x; i++) {
-                    if (chessBoard.board[line + i][column - i] == null) {
-                        b = true;
-                    } else {
-                        b = false;
-                        break;
-                    }
+                    b = (chessBoard.board[line + i][column - i] == null);
                 }
             }
             if (toColumn > column + 1 && toLine < line - 1) {
                 int x = line - toLine;
                 for (int i = 1; i < x; i++) {
-                    if (chessBoard.board[line - i][column + i] == null) {
-                        b = true;
-                    } else {
-                        b = false;
-                        break;
-                    }
+                    b = (chessBoard.board[line - i][column + i] == null);
                 }
             }
             if ((toColumn == column + 1 && toLine == line + 1) || (toColumn == column - 1 && toLine == line - 1) ||
@@ -90,5 +67,10 @@ public class Bishop extends ChessPiece {
             }
         }
         return b;
+    }
+
+    public boolean thisBishop(ChessBoard chessBoard, int line, int column) {
+        return (chessBoard.board[line][column] != null && chessBoard.board[line][column].getColor().equals(chessBoard.nowPlayer)
+                && chessBoard.board[line][column].getSymbol().equals("B"));
     }
 }

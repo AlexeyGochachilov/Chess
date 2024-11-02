@@ -26,4 +26,8 @@ abstract public class ChessPiece {
     public boolean positions2(int line, int column) {
         return positions4(line, column, 0, 0);
     }
+
+    public boolean plusOne(int line, int column, int toLine, int toColumn){
+        return (toLine == line + 1 || toLine == line - 1 || toColumn == column + 1 || toColumn == column - 1);
+    }
 }

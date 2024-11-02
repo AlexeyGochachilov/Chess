@@ -36,10 +36,8 @@ public class Horse extends ChessPiece {
             for (int j = -1; j < 2; j += 2) {
                 if ((toColumn == (column + i) && toLine == (line + j)) ||
                         (toColumn == (column + j) && toLine == (line + i))) {
-                    if (chessBoard.board[toLine][toColumn] != null) {
-                        b = !chessBoard.board[toLine][toColumn].getColor().equals(color);
-                    }
-                    if (chessBoard.board[toLine][toColumn] == null){
+                    if (chessBoard.board[toLine][toColumn] == null ||
+                            !chessBoard.board[toLine][toColumn].getColor().equals(color)){
                         b = true;
                     }
                 }

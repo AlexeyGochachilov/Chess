@@ -16,13 +16,13 @@ public class King extends ChessPiece {
 
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
+        boolean b = false;
         if (positions4(line, column, toLine, toColumn)) {
-            if (chessBoard.board[line][column] != null) {
-                if (moveKing(chessBoard, line, column, toLine, toColumn)) {
-                    return true;
-                } else return false;
-            } else return false;
-        } else return false;
+            if (thisKing(chessBoard, line, column)) {
+                b = (moveKing(chessBoard, line, column, toLine, toColumn));
+            }
+        }
+        return b;
     }
 
     public boolean isUnderAttack(ChessBoard chessBoard, int line, int column) {
@@ -174,17 +174,23 @@ public class King extends ChessPiece {
                 }
             }
         }
-
         return b;
     }
 
     public boolean moveKing(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
         boolean b = false;
         if (chessBoard.board[toLine][toColumn] == null || !chessBoard.board[toLine][toColumn].getColor().equals(chessBoard.nowPlayer)) {
-            if ((toLine == (line + 1)) || toLine == (line - 1) || toColumn == (column + 1) || toColumn == (column - 1)) {
-                b = !isUnderAttack(chessBoard, toLine, toColumn);
+            if (plusOne(line, column, toLine, toColumn)) {
+                if(!isUnderAttack(chessBoard, toLine, toColumn)){
+                    b = true;
+                }
             }
         }
         return b;
+    }
+
+    public boolean thisKing(ChessBoard chessBoard, int line, int column) {
+        return (chessBoard.board[line][column] != null && chessBoard.board[line][column].getColor().equals(chessBoard.nowPlayer)
+                && chessBoard.board[line][column].getSymbol().equals("K"));
     }
 }

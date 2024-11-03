@@ -45,28 +45,48 @@ public class Queen extends ChessPiece {
             if (toColumn > column + 1) {
                 int x = toColumn - column;
                 for (int i = 1; i < x; i++) {
-                    b = (chessBoard.board[line][column + i] == null);
+                    if (chessBoard.board[line][column + i] == null) {
+                        b = true;
+                    } else {
+                        b = false;
+                        break;
+                    }
                 }
             }
             if (toColumn < column - 1) {
                 int x = column - toColumn;
                 for (int i = 1; i < x; i++) {
-                    b = (chessBoard.board[line][column - i] == null);
+                    if (chessBoard.board[line][column - i] == null) {
+                        b = true;
+                    } else {
+                        b = false;
+                        break;
+                    }
                 }
             }
             if (toLine > line + 1) {
                 int x = toLine - line;
                 for (int i = 1; i < x; i++) {
-                    b = (chessBoard.board[line + i][column] == null);
+                    if (chessBoard.board[line + i][column] == null) {
+                        b = true;
+                    } else {
+                        b = false;
+                        break;
+                    }
                 }
             }
             if (toLine < line - 1) {
                 int x = line - toLine;
                 for (int i = 1; i < x; i++) {
-                    b = (chessBoard.board[line - i][column] == null);
+                    if (chessBoard.board[line - i][column] == null) {
+                        b = true;
+                    } else {
+                        b = false;
+                        break;
+                    }
                 }
             }
-            if (plusOne(line, column, toLine, toColumn)){
+            if (plusOne(line, column, toLine, toColumn)) {
                 b = true;
             }
         }

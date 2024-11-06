@@ -30,4 +30,5 @@ abstract public class ChessPiece {
     public boolean plusOne(int line, int column, int toLine, int toColumn){
         return (toLine == line + 1 || toLine == line - 1 || toColumn == column + 1 || toColumn == column - 1);
     }
+
 }
